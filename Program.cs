@@ -6,6 +6,21 @@ List<ProductType> productTypes = new List<ProductType>()
     {
         Id = 1,
         Name = "Wand"
+    },
+    new ProductType()
+    {
+        Id = 2,
+        Name = "Apparel"
+    },
+    new ProductType()
+    {
+        Id = 3,
+        Name = "Potion"
+    },
+    new ProductType()
+    {
+        Id = 4,
+        Name = "Enchanted Object"
     }
 };
 
@@ -16,7 +31,28 @@ List<Product> products = new List<Product>()
         Name = "The Stick",
         Price = 18.99M,
         Sold = false,
-        ProductTypeId = 1
+        ProductTypeId = 1 
+    },
+    new Product()
+    {
+        Name = "Robe of the Wise",
+        Price = 45.00M,
+        Sold = false,
+        ProductTypeId = 2
+    },
+    new Product()
+    {
+        Name = "Healing Potion",
+        Price = 12.50M,
+        Sold = true,
+        ProductTypeId = 3
+    },
+    new Product()
+    {
+        Name = "Invisibility Cloak",
+        Price = 99.99M,
+        Sold = false,
+        ProductTypeId = 4
     }
 };
 
@@ -44,7 +80,7 @@ while (choice != "0")
     else if (choice == "2")
     {
         Console.Clear();
-        break;
+        PostProduct();
     }
     else if (choice == "3")
     {
@@ -70,4 +106,35 @@ void ViewProducts()
         Sold: {product.Sold}
         ");
     }
+}
+
+void PostProduct()
+{
+    Console.WriteLine("Enter Name");
+    string name = Console.ReadLine();
+
+    Console.Write("Enter Price");
+    decimal price;
+    while(!decimal.TryParse(Console.ReadLine(), out price))
+    {
+        Console.WriteLine("Please enter a valid price");
+    }
+
+    Console.WriteLine("Enter Product Type Id (1-4)");
+    int userProductTypeIdChoice;
+    while(!int.TryParse(Console.ReadLine(), out userProductTypeIdChoice) || userProductTypeIdChoice < 1 || userProductTypeIdChoice > 4)
+    {
+        Console.WriteLine("Please enter a valid number between 1-4");
+    }
+
+    Product newProduct = new Product()
+    {
+        Name = name,
+        Price = price,
+        Sold = false,
+        ProductTypeId = userProductTypeIdChoice
+    };
+
+    products.Add(newProduct);
+    Console.WriteLine($"{name} has been added to the product list");
 }
