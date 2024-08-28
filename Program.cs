@@ -28,6 +28,7 @@ List<Product> products = new List<Product>()
 {
     new Product()
     {
+        Id = 1,
         Name = "The Stick",
         Price = 18.99M,
         Sold = false,
@@ -35,6 +36,7 @@ List<Product> products = new List<Product>()
     },
     new Product()
     {
+        Id = 2,
         Name = "Robe of the Wise",
         Price = 45.00M,
         Sold = false,
@@ -42,6 +44,7 @@ List<Product> products = new List<Product>()
     },
     new Product()
     {
+        Id = 3,
         Name = "Healing Potion",
         Price = 12.50M,
         Sold = true,
@@ -49,12 +52,14 @@ List<Product> products = new List<Product>()
     },
     new Product()
     {
+        Id = 4,
         Name = "Invisibility Cloak",
         Price = 99.99M,
         Sold = false,
         ProductTypeId = 4
     }
 };
+
 
 
 Console.WriteLine(greeting);
@@ -85,7 +90,7 @@ while (choice != "0")
     else if (choice == "3")
     {
         Console.Clear();
-        break;
+        DeleteProduct();
     }
     else if (choice == "4")
     {
@@ -101,6 +106,7 @@ void ViewProducts()
     foreach (var product in products)
     {
         Console.WriteLine(@$"
+        Id: {product.Id}
         Name: {product.Name}
         Price: {product.Price}
         Sold: {product.Sold}
@@ -137,4 +143,19 @@ void PostProduct()
 
     products.Add(newProduct);
     Console.WriteLine($"{name} has been added to the product list");
+}
+
+void DeleteProduct()
+{
+    ViewProducts();
+
+    Console.WriteLine("Enter product you wish to delete. (must be id)");
+    int userDeleteChoice;
+    while(!int.TryParse(Console.ReadLine(), out userDeleteChoice) || userDeleteChoice < 1 || userDeleteChoice > products.Count)
+    {
+        Console.WriteLine("Please enter a valid product id");
+    }
+
+    products.RemoveAt(userDeleteChoice -1 );
+    Console.WriteLine("Product has been successfully removed");
 }
