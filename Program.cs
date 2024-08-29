@@ -76,7 +76,8 @@ while (choice != "0")
                         2. Add Product to Inventory
                         3. Delete Product from Inventory
                         4. Update a Product's Details
-                        5. Search by Product Type Id");
+                        5. Search by Product Type Id
+                        6. View All AVAILABLE Products");
     choice = Console.ReadLine();
     if (choice == "0")
     {
@@ -106,6 +107,11 @@ while (choice != "0")
     {
         Console.Clear();
         SearchProductId();
+    }
+    else if (choice == "6")
+    {
+        Console.Clear();
+        ViewAvailableProducts();
     }
 }
 
@@ -278,5 +284,22 @@ void SearchProductId()
             ");
         }
         
+    }
+}
+
+void ViewAvailableProducts()
+{
+    List<Product> unsoldProducts = products.Where(p => !p.Sold).ToList();
+
+    foreach (var product in unsoldProducts)
+    {
+        Console.WriteLine(@$"
+        Id: {product.Id}
+        Name: {product.Name}
+        Price: {product.Price}
+        Sold: {product.Sold}
+        Date Stocked: {product.DateStocked}
+        Days on Shelf: {product.DaysOnShelf}
+        ");
     }
 }
