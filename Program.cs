@@ -95,7 +95,7 @@ while (choice != "0")
     else if (choice == "4")
     {
         Console.Clear();
-        break;
+        UpdateProduct();
     }
 }
 
@@ -158,4 +158,88 @@ void DeleteProduct()
 
     products.RemoveAt(userDeleteChoice -1 );
     Console.WriteLine("Product has been successfully removed");
+}
+
+void UpdateProduct()
+{
+    try
+    {
+        ViewProducts();
+
+        Console.WriteLine("Enter the Id of the product you wish to update:");
+        int userUpdateChoice;
+        while (!int.TryParse(Console.ReadLine(), out userUpdateChoice))
+        {
+            Console.WriteLine("Please enter a valid product Id.");
+        }
+
+        // Initialize a variable to store the product to be updated
+        Product productToUpdate = null;
+
+        // Use a foreach loop to find the product with the matching Id
+        foreach (var product in products)
+        {
+            if (product.Id == userUpdateChoice)
+            {
+                productToUpdate = product;
+                break; // Exit the loop once the product is found
+            }
+        }
+
+        // Check if the product was found
+        if (productToUpdate != null)
+        {
+            Console.WriteLine($"Updating Product: {productToUpdate.Name}");
+
+            // Update Name
+            Console.WriteLine("Enter new Name (or press Enter to keep current):");
+            string newName = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(newName))
+            {
+                productToUpdate.Name = newName;
+            }
+
+            // Update Price
+            Console.WriteLine("Enter new Price (or press Enter to keep current):");
+            string newPriceInput = Console.ReadLine();
+            if (decimal.TryParse(newPriceInput, out decimal newPrice))
+            {
+                productToUpdate.Price = newPrice;
+            }
+
+            // Update Sold status
+            Console.WriteLine("Is the product sold? (y/n, or press Enter to keep current):");
+            string newSoldStatus = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(newSoldStatus))
+            {
+                if (newSoldStatus.ToLower() == "y")
+                {
+                    productToUpdate.Sold = true;
+                }
+                else if (newSoldStatus.ToLower() == "n")
+                {
+                    productToUpdate.Sold = false;
+                }
+            }
+
+            // Update Product Type
+            Console.WriteLine("Enter new Product Type Id (1-4, or press Enter to keep current):");
+            string newProductTypeIdInput = Console.ReadLine();
+            if (int.TryParse(newProductTypeIdInput, out int newProductTypeId) &&
+                newProductTypeId >= 1 && newProductTypeId <= 4)
+            {
+                productToUpdate.ProductTypeId = newProductTypeId;
+            }
+
+            Console.WriteLine($"Product '{productToUpdate.Name}' has been successfully updated.");
+        }
+        else
+        {
+            Console.WriteLine("Product with the specified Id was not found.");
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"An error occurred while attempting to update the product: {ex.Message}");
+    }
 }
