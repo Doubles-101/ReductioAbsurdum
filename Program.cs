@@ -71,7 +71,8 @@ while (choice != "0")
                         1. View All Products
                         2. Add Product to Inventory
                         3. Delete Product from Inventory
-                        4. Update a Product's Details");
+                        4. Update a Product's Details
+                        5. Search by Product Type Id");
     choice = Console.ReadLine();
     if (choice == "0")
     {
@@ -96,6 +97,11 @@ while (choice != "0")
     {
         Console.Clear();
         UpdateProduct();
+    }
+    else if (choice == "5")
+    {
+        Console.Clear();
+        SearchProductId();
     }
 }
 
@@ -241,5 +247,30 @@ void UpdateProduct()
     catch (Exception ex)
     {
         Console.WriteLine($"An error occurred while attempting to update the product: {ex.Message}");
+    }
+}
+
+void SearchProductId()
+{
+    Console.WriteLine("Please enter a number between 1 and 4");
+
+    int userChoice;
+    while (!int.TryParse(Console.ReadLine(), out userChoice) || userChoice < 1 || userChoice > 4)
+    {
+        Console.WriteLine("Please enter a valid number between 1-4");
+    }
+
+    foreach (var product in products)
+    {
+        if (userChoice == product.ProductTypeId)
+        {
+            Console.WriteLine(@$"
+            Id: {product.Id}
+            Name: {product.Name}
+            Price: {product.Price}
+            Sold: {product.Sold}
+            ");
+        }
+        
     }
 }
