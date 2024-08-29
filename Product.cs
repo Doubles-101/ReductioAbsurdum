@@ -13,5 +13,14 @@ public class Product
     public bool Sold { get; set; }
     public int ProductTypeId { get; set; }
 
-    public ProductType ProductType { get; set; } // Optional: for navigation
+    public ProductType ProductType { get; set; } 
+    public DateTime DateStocked { get; set; }
+    public int DaysOnShelf
+{
+    get
+    {
+        TimeSpan timeOnShelf = DateTime.Now - DateStocked;
+        return timeOnShelf.Days;
+    }
+}
 }

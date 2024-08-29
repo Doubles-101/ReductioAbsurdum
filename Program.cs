@@ -32,7 +32,8 @@ List<Product> products = new List<Product>()
         Name = "The Stick",
         Price = 18.99M,
         Sold = false,
-        ProductTypeId = 1 
+        ProductTypeId = 1,
+        DateStocked = new DateTime(2024, 1, 1)
     },
     new Product()
     {
@@ -40,7 +41,8 @@ List<Product> products = new List<Product>()
         Name = "Robe of the Wise",
         Price = 45.00M,
         Sold = false,
-        ProductTypeId = 2
+        ProductTypeId = 2,
+        DateStocked = new DateTime(2024, 2, 12)
     },
     new Product()
     {
@@ -48,7 +50,8 @@ List<Product> products = new List<Product>()
         Name = "Healing Potion",
         Price = 12.50M,
         Sold = true,
-        ProductTypeId = 3
+        ProductTypeId = 3,
+        DateStocked = new DateTime(2024, 5, 15)
     },
     new Product()
     {
@@ -56,7 +59,8 @@ List<Product> products = new List<Product>()
         Name = "Invisibility Cloak",
         Price = 99.99M,
         Sold = false,
-        ProductTypeId = 4
+        ProductTypeId = 4,
+        DateStocked = new DateTime(2024, 8, 1)
     }
 };
 
@@ -116,6 +120,8 @@ void ViewProducts()
         Name: {product.Name}
         Price: {product.Price}
         Sold: {product.Sold}
+        Date Stocked: {product.DateStocked}
+        Days on Shelf: {product.DaysOnShelf}
         ");
     }
 }
